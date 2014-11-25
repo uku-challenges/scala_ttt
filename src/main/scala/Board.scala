@@ -35,15 +35,15 @@ class Board(squares: Seq[Any]) {
     squares.filterNot(isPlayer)
   }
 
-  def hasWinner() = {
-    winner().isDefined
+  def isOver = {
+    winner.isDefined || isDraw
   }
 
-  def isDraw() = {
-    isFull && winner.isEmpty
+  def isDraw = {
+    isFull && !winner.isDefined
   }
 
-  def winner(): Option[Any] = {
+  def winner: Option[Any] = {
     winningCombinations.foreach(combination =>
       if(isWinning(combination))
         return Some(combination.head)

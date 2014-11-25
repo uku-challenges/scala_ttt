@@ -25,11 +25,15 @@ class BoardSpec extends FunSpec with ShouldMatchers {
 
     describe("terminal states") {
       it("empty board has no winner") {
-        board.winner() should not be defined
+        board.winner should not be defined
       }
 
       it("empty board has no draw") {
-        board.isDraw() should be(false)
+        board.isDraw should be(false)
+      }
+
+      it("empty board is not over") {
+        board.isOver should be(false)
       }
 
       describe("Horizontal win") {
@@ -38,7 +42,7 @@ class BoardSpec extends FunSpec with ShouldMatchers {
                                     3, 4, 5,
                                     6, 7, 8)
 
-          winBoard.winner() shouldBe defined
+          winBoard.winner shouldBe defined
         }
 
         it("second row has winner") {
@@ -46,7 +50,7 @@ class BoardSpec extends FunSpec with ShouldMatchers {
                                     X, X, X,
                                     6, 7, 8)
 
-          winBoard.winner() shouldBe defined
+          winBoard.winner shouldBe defined
         }
 
         it("third row has winner") {
@@ -54,7 +58,7 @@ class BoardSpec extends FunSpec with ShouldMatchers {
                                     3, 4, 5,
                                     X, X, X)
 
-          winBoard.winner() shouldBe defined
+          winBoard.winner shouldBe defined
         }
       }
 
@@ -64,7 +68,7 @@ class BoardSpec extends FunSpec with ShouldMatchers {
                                     X, 4, 5,
                                     X, 7, 8)
 
-          winBoard.winner() shouldBe defined
+          winBoard.winner shouldBe defined
         }
 
         it("second column has winner") {
@@ -72,7 +76,7 @@ class BoardSpec extends FunSpec with ShouldMatchers {
                                     3, X, 5,
                                     6, X, 8)
 
-          winBoard.winner() shouldBe defined
+          winBoard.winner shouldBe defined
         }
 
         it("third column has winner") {
@@ -80,7 +84,7 @@ class BoardSpec extends FunSpec with ShouldMatchers {
                                     3, 4, X,
                                     6, 7, X)
 
-          winBoard.winner() shouldBe defined
+          winBoard.winner shouldBe defined
         }
       }
 
@@ -90,7 +94,7 @@ class BoardSpec extends FunSpec with ShouldMatchers {
                                     3, X, 5,
                                     6, 7, X)
 
-          winBoard.winner() shouldBe defined
+          winBoard.winner shouldBe defined
         }
 
         it("second diagonal has winner") {
@@ -98,59 +102,52 @@ class BoardSpec extends FunSpec with ShouldMatchers {
                                     3, X, 5,
                                     X, 7, 8)
 
-          winBoard.winner() shouldBe defined
+          winBoard.winner shouldBe defined
         }
       }
 
-      describe("Getting winner marks") {
-        it("first row winner is correct for X") {
-          val winBoard = Board.make(X, X, X,
-                                    3, 4, 5,
-                                    6, 7, 8)
+      describe("Won game") {
+        val xWins = Board.make(X, X, X,
+                               3, 4, 5,
+                               6, 7, 8)
 
-          winBoard.winner().get shouldEqual X
+        val oWins = Board.make(O, O, O,
+                               3, 4, 5,
+                               6, 7, 8)
+
+
+        it("first row winner is correct for X") {
+          xWins.winner.get shouldEqual X
         }
 
         it("first row winner is correct for O") {
-          val winBoard = Board.make(O, O, O,
-                                    3, 4, 5,
-                                    6, 7, 8)
-
-          winBoard.winner().get shouldEqual O
+          oWins.winner.get shouldEqual O
         }
 
-        it("first column winner is correct for X") {
-          val winBoard = Board.make(X, 1, 2,
-                                    X, 4, 5,
-                                    X, 7, 8)
-
-          winBoard.winner().get shouldEqual X
+        it("is over when X wins") {
+          xWins.isOver shouldBe true
         }
 
-        it("first column winner is correct for O") {
-          val winBoard = Board.make(O, 1, 2,
-                                    O, 4, 5,
-                                    O, 7, 8)
-
-          winBoard.winner().get shouldEqual O
+        it("is over when O wins") {
+          oWins.isOver shouldBe true
         }
       }
 
       describe("Draw game")  {
-        it("winner is none") {
-          val winBoard = Board.make(O, O, X,
+        val drawBoard =  Board.make(O, O, X,
                                     X, O, O,
                                     O, X, X)
-
-          winBoard.winner should not be defined
+ 
+        it("winner is none") {
+          drawBoard.winner should not be defined
         }
 
         it("draw is true") {
-          val winBoard = Board.make(O, O, X,
-                                    X, O, O,
-                                    O, X, X)
+          drawBoard.isDraw should be(true)
+        }
 
-          winBoard.isDraw() should be(true)
+        it("draw board is over") {
+          drawBoard.isOver should be(true)
         }
       }
     }
