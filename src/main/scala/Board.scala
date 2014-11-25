@@ -51,6 +51,8 @@ class Board(squares: Seq[Any]) {
     None
   }
 
+  def asSeq = squares
+
   private def isFull = {
     validMoves.isEmpty
   }
