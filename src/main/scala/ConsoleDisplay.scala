@@ -9,7 +9,7 @@ object ConsoleDisplay {
 
 class ConsoleDisplay(out: Writer) extends Display {
 
-  val template = 
+  private val template = 
     """ #* | * | *
         #--+---+--
         #* | * | *
@@ -17,10 +17,18 @@ class ConsoleDisplay(out: Writer) extends Display {
         #* | * | *
    #""".stripMargin('#')
 
-  val placeHolder = "\\*"
+  private val placeHolder = "\\*"
 
   def showBoard(board: Board) {
-    out.write(buildBoard(board))
+    print(buildBoard(board))
+  }
+
+  def invalidMove() = {
+    print("Invalid Move, try again\n")
+  }
+
+  private def print(msg: String) {
+    out.write(msg)
     out.flush
   }
 

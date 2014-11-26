@@ -81,6 +81,13 @@ class GameSpec extends FunSpec with ShouldMatchers with MockFactory {
 
         game.currentPlayer shouldBe xPlayer
       }
+
+      it("notifies user of the invalid move") {
+        val game = gameWithMoves(99)
+        game.playTurn()
+
+        (stubDisplay.invalidMove _).verify().once
+      }
     }
 
     describe("game loop") {

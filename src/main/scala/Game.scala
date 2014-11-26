@@ -33,6 +33,8 @@ class Game(var board: Board, private val display: Display, private val players: 
     if(canMakeMove(moveOption)) {
       makeMove(moveOption.get)
       nextPlayerTurn()
+    } else {
+      display.invalidMove()
     }
   }
 
