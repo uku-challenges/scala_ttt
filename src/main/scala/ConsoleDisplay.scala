@@ -27,8 +27,15 @@ class ConsoleDisplay(out: Writer) extends Display {
   private def buildBoard(board: Board): String = {
      var boardOutput = new String(template) 
      board.asSeq.foreach(cell =>
-         boardOutput = boardOutput.replaceFirst(placeHolder, cell.toString)
+         boardOutput = boardOutput.replaceFirst(placeHolder, formatCell(cell))
      )
      boardOutput
+  }
+
+  private def formatCell(cell: Any): String = {
+    cell match {
+      case cell: String => cell
+      case cell: Int => (cell + 1).toString
+    }
   }
 }

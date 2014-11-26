@@ -1,6 +1,6 @@
 package ttt.board
 
-import ttt.mark.Mark._
+import ttt.mark.Mark.{X,O}
 import org.scalatest._
 import org.scalatest.matchers.ShouldMatchers
 

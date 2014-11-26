@@ -1,6 +1,7 @@
 package ttt.board
 
-import ttt.mark.Mark._
+import ttt.mark.Mark
+import ttt.mark.Mark.{X,O}
 
 object Board {
   def empty() = new Board(Vector(0, 1, 2,
@@ -32,7 +33,7 @@ class Board(squares: Seq[Any]) {
   }
 
   def validMoves = {
-    squares.filterNot(isPlayer)
+    squares.filterNot(Mark.isMark)
   }
 
   def isOver = {
@@ -67,9 +68,5 @@ class Board(squares: Seq[Any]) {
 
   private def resolveOnSquares(indices: Seq[Int]): Seq[Any] = {
     indices.map(squares)
-  }
-
-  private def isPlayer(sq: Any) = {
-    sq == X || sq == O
   }
 }

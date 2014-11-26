@@ -50,11 +50,11 @@ class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter
                                      6, 7, 8))
 
         val expected = 
-          """ #0 | 1 | 2
+          """ #1 | 2 | 3
               #--+---+--
-              #3 | X | 5
+              #4 | X | 6
               #--+---+--
-              #6 | 7 | 8
+              #7 | 8 | 9
           #""".stripMargin('#')
 
         out.toString should equal(expected)
