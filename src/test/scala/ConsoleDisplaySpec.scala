@@ -60,5 +60,29 @@ class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter
         out.toString should equal(expected)
       }
     }
+
+    it("notifies of turn") {
+      display.notifyTurn("X")
+
+      out.toString should include("X")
+    }
+
+    it("notifies of invalid move") {
+      display.invalidMove()
+
+      out.toString should include("Invalid")
+    }
+
+    it("announces winner") {
+      display.announceResult(Some("X"))
+
+      out.toString should include("X")
+    }
+
+    it("announces draw") {
+      display.announceResult(None)
+
+      out.toString should include("draw")
+    }
   }
 }

@@ -25,9 +25,11 @@ class Game(var board: Board, private val display: Display, private val players: 
     while(!isOver) {
       playTurn
     }
+    display.announceResult(winnerMark)
   }
 
   def playTurn() = {
+    display.notifyTurn(currentPlayer.mark)
     display.showBoard(board)
     val moveOption = currentPlayer.getMove()
     if(canMakeMove(moveOption)) {

@@ -56,6 +56,13 @@ class GameSpec extends FunSpec with ShouldMatchers with MockFactory {
 
         (stubDisplay.showBoard _).verify(*).once
       }
+
+      it("notifies whose turn it is") {
+        val game = gameWithMoves(0)
+        game.playTurn()
+
+        (stubDisplay.notifyTurn _).verify(*).once
+      }
     }
 
     describe("With invalid move") {
@@ -91,25 +98,52 @@ class GameSpec extends FunSpec with ShouldMatchers with MockFactory {
     }
 
     describe("game loop") {
-      it("plays through the whole game when X wins") {
+      def xWinsGame: Game  = {
         val xPlayer = FakePlayer.X(0,1,2)
         val oPlayer = FakePlayer.O(6,7)
-        val game = gameWithPlayers(xPlayer, oPlayer)
+        gameWithPlayers(xPlayer, oPlayer)
+      } 
+
+      def oWinsGame: Game  = {
+        val xPlayer = FakePlayer.X(5,6,7)
+        val oPlayer = FakePlayer.O(0,1,2)
+        gameWithPlayers(xPlayer, oPlayer)
+      } 
+
+      def drawGame: Game  = {
+        val xPlayer = FakePlayer.X(0,1,6,5,8)
+        val oPlayer = FakePlayer.O(2,4,3,7)
+        gameWithPlayers(xPlayer, oPlayer)
+      } 
+
+      it("plays through the whole game when X wins") {
+        val game = xWinsGame
         game.play()
 
-        game.winnerMark.get should be(xPlayer.mark)
+        game.winnerMark.get should be(Mark.X)
       }
 
       it("plays through the whole game when O wins") {
-        val xPlayer = FakePlayer.X(5,6,7)
-        val oPlayer = FakePlayer.O(0,1,2)
-        val game = gameWithPlayers(xPlayer, oPlayer)
+        val game = oWinsGame
         game.play()
 
-        game.winnerMark.get should be(oPlayer.mark)
+        game.winnerMark.get should be(Mark.O)
+      }
+
+      it("plays through the whole game when it's draw") {
+        val game = drawGame
+        game.play()
+
+        game.winnerMark should be(None)
+      }
+
+      it("announces the results with an optional winner mark") {
+        val game = xWinsGame
+        game.play()
+
+        (stubDisplay.announceResult _).verify(Some(Mark.X))
       }
     }
-
   }
 
   def gameWithMoves(moves: Int*) = {

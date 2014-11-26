@@ -27,6 +27,17 @@ class ConsoleDisplay(out: Writer) extends Display {
     print("Invalid Move, try again\n")
   }
 
+  def notifyTurn(mark: String) = {
+    print("\n" + mark + " turn\n")
+  }
+
+  def announceResult(winnerMark: Option[Any]) = {
+    winnerMark match {
+      case winnerMark: Some[String] => print(winnerMark.get + " has won!\n")
+      case _                        => print("It's a draw!\n")
+    }
+  }
+
   private def print(msg: String) {
     out.write(msg)
     out.flush
