@@ -2,18 +2,19 @@ package ttt.console_display
 
 import java.io.Writer
 import ttt.board.Board
+import ttt.display.Display
 
 object ConsoleDisplay {
 }
 
-class ConsoleDisplay(out: Writer) {
+class ConsoleDisplay(out: Writer) extends Display {
 
   val template = 
-    """ #* | * | *\n
-        #--+---+--\n
-        #* | * | *\n
-        #--+---+--\n
-        #* | * | *\n
+    """ #* | * | *
+        #--+---+--
+        #* | * | *
+        #--+---+--
+        #* | * | *
    #""".stripMargin('#')
 
   val placeHolder = "\\*"
