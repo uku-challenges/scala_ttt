@@ -3,8 +3,10 @@ package ttt.game
 import ttt.mark.Mark
 import ttt.board.Board
 import ttt.player.Player
+import ttt.display.Display
 import org.scalatest._
 import org.scalatest.matchers.ShouldMatchers
+import org.scalamock.scalatest.MockFactory
 
 object FakePlayer {
   def X(moves: Int*) = {
@@ -26,8 +28,10 @@ class FakePlayer(var moves: Seq[Int], private val _mark:String) extends Player {
   def mark: String = _mark
 }
 
-class GameSpec extends FunSpec with ShouldMatchers {
+class GameSpec extends FunSpec with ShouldMatchers with MockFactory {
 
+  val stubDisplay = stub[Display]
+  
   describe("Playing a turn") {
     describe("With valid move") {
       it("plays the move on board") {
@@ -44,6 +48,13 @@ class GameSpec extends FunSpec with ShouldMatchers {
         game.playTurn()
 
         game.currentPlayer shouldBe oPlayer
+      }
+
+      it("shows the Board") {
+        val game = gameWithMoves(0)
+        game.playTurn()
+
+        (stubDisplay.showBoard _).verify(*).once
       }
     }
 
@@ -99,7 +110,7 @@ class GameSpec extends FunSpec with ShouldMatchers {
   }
 
   def gameWithPlayers(players: Player*) = {
-    new Game(Board.empty, players.toList)
+    new Game(Board.empty, stubDisplay, players.toList)
   }
 
 }
