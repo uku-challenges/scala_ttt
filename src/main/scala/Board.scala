@@ -32,8 +32,8 @@ class Board(squares: Seq[Any]) {
     validMoves.contains(index)
   }
 
-  def validMoves = {
-    squares.filterNot(Mark.isMark)
+  def validMoves: Seq[Int] = {
+    squares.filterNot(Mark.isMark).map(sq => sq.asInstanceOf[Int])
   }
 
   def isOver = {

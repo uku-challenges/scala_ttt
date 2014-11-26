@@ -7,4 +7,11 @@ object Mark {
   def isMark(cell: Any) = {
     cell == X || cell == O
   }
+
+  def opponentOf(mark: String) = {
+    mark match {
+      case X => O
+      case O => X
+    }
+  }
 }
