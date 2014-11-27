@@ -143,6 +143,13 @@ class GameSpec extends FunSpec with ShouldMatchers with MockFactory {
 
         (stubDisplay.announceResult _).verify(Some(Mark.X))
       }
+
+      it("shows board after game is over") {
+        val game = xWinsGame
+        game.play()
+
+        (stubDisplay.showBoard _).verify(game.board)
+      }
     }
   }
 

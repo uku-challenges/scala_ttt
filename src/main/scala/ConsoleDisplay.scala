@@ -74,11 +74,11 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
   }
 
   private def buildBoard(board: Board): String = {
-     var boardOutput = new String(template) 
+     var boardString = new String(template) 
      board.asSeq.foreach(cell =>
-         boardOutput = boardOutput.replaceFirst(placeHolder, formatCell(cell))
+         boardString = boardString.replaceFirst(placeHolder, formatCell(cell))
      )
-     boardOutput
+     boardString + "\n"
   }
 
   private def formatCell(cell: Any): String = {

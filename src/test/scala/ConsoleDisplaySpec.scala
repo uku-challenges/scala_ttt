@@ -61,7 +61,7 @@ class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter
               #4 | X | 6
               #--+---+--
               #7 | 8 | 9
-          #""".stripMargin('#')
+          #""".stripMargin('#') + "\n"
 
         out.toString should equal(expected)
       }
