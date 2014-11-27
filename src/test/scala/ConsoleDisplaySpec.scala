@@ -4,16 +4,22 @@ import ttt.mark.Mark._
 import ttt.board.Board
 import org.scalatest._
 import org.scalatest.matchers.ShouldMatchers
-import java.io.{Writer, StringWriter}
+import java.io.{Writer, BufferedReader, StringWriter, StringReader}
 
 class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter {
 
+  var in: BufferedReader      = _
   var out: Writer             = _
   var display: ConsoleDisplay = _
 
   before {
     out     = new StringWriter()
-    display = new ConsoleDisplay(out)
+    display = new ConsoleDisplay(in, out)
+  }
+
+  def withInStr(str: String, testFn: ConsoleDisplay => Unit) = {
+    in = new BufferedReader(new StringReader(str))
+    testFn(new ConsoleDisplay(in, out))
   }
 
   def occurrences(str:String, substr:String ) = substr.r.findAllMatchIn(str).length
@@ -58,6 +64,59 @@ class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter
           #""".stripMargin('#')
 
         out.toString should equal(expected)
+      }
+    }
+
+    describe("Select") {
+      val gameType = "game type"
+      val options = Vector("Human vs Human", "Human vs Computer")
+
+      it("prints subject") {
+        withInStr("", display => {
+          display.select(gameType, options)
+          out.toString should include(gameType)
+        })
+      }
+
+      it("prints options") {
+        withInStr("", display => {
+          display.select(gameType, options)
+          out.toString should include(options(0))
+          out.toString should include(options(1))
+        })
+      }
+
+      it("gets the one-indexed selection") {
+        withInStr("1\n", display => 
+          display.select(gameType, options).get should equal(options(0))
+        )
+      }
+
+      it("returns None if input is garbage") {
+        withInStr("123zzz\n", display =>
+          display.select(gameType, options) should not be defined
+        )
+      }
+    }
+
+    describe("getMove") {
+      it("asks for move") {
+        withInStr("", display =>{
+          display.getMove()
+          out.toString should include("move")
+        })
+      }
+
+      it("gets the move with index conversion") {
+        withInStr("1\n", display =>
+          display.getMove().get should be(0)
+        )
+      }
+
+      it("move is not defined if input is garbage") {
+        withInStr("123zzzz\n", display =>
+          display.getMove() should not be defined
+        )
       }
     }
 

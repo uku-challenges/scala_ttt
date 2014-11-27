@@ -1,6 +1,7 @@
 package ttt.game
 
 import ttt.board.Board
+import ttt.mark.Mark.{X, O}
 import ttt.player.Player
 import ttt.display.Display
 import ttt.console_display.ConsoleDisplay
@@ -10,12 +11,32 @@ import ttt.negamax_player.NegamaxPlayer
 import java.io.{PrintWriter, BufferedReader, InputStreamReader}
 
 object Game {
-  def main(args: Array[String]) {
-    val display = new ConsoleDisplay(new PrintWriter(System.out))
-    val xPlayer = new ConsolePlayer("X", new BufferedReader(new InputStreamReader(System.in)))
-    val oPlayer = new NegamaxPlayer("O")
+  val in  = new BufferedReader(new InputStreamReader(System.in))
+  val out = new PrintWriter(System.out)
+  val display = new ConsoleDisplay(in, out)
 
-    new Game(Board.empty, display, Vector(xPlayer, oPlayer)).play()
+  val gameTypes = Map(
+    "Human vs Human"       -> { build(human(X), human(O))},
+    "Human vs Computer"    -> { build(human(X), computer(O)) },
+    "Computer vs Human"    -> { build(computer(X), human(O)) },
+    "Computer vs Computer" -> { build(computer(X), computer(O)) }
+  )
+
+  def main(args: Array[String]) = {
+    val selection = display.select("game type", gameTypes.keys.toList)
+    gameTypes(selection.get).play()
+  }
+
+  private def build(players: Player*) = {
+    new Game(Board.empty, display, players)
+  }
+
+  private def human(mark: String) = { 
+    new ConsolePlayer(mark, display)
+  }
+
+  private def computer(mark: String) = {
+    new NegamaxPlayer(mark)
   }
 }
 

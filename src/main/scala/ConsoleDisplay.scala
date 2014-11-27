@@ -1,13 +1,13 @@
 package ttt.console_display
 
-import java.io.Writer
+import java.io.{Writer, BufferedReader}
 import ttt.board.Board
 import ttt.display.Display
 
 object ConsoleDisplay {
 }
 
-class ConsoleDisplay(out: Writer) extends Display {
+class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
 
   private val template = 
     """ #* | * | *
@@ -18,6 +18,19 @@ class ConsoleDisplay(out: Writer) extends Display {
    #""".stripMargin('#')
 
   private val placeHolder = "\\*"
+  
+  def select(subject: String, options: Seq[String]): Option[String] = {
+    print("Select " + subject + ":\n")
+    selectIndex(options) match {
+      case Some(index) => options.lift(index)
+      case _           => None
+    }
+  }
+
+  def getMove(): Option[Int] = {
+    print("Enter a move: ")
+    tryZeroIndexedInt(in.readLine)
+  }
 
   def showBoard(board: Board) {
     print(buildBoard(board))
@@ -33,7 +46,7 @@ class ConsoleDisplay(out: Writer) extends Display {
 
   def announceResult(winnerMark: Option[Any]) = {
     winnerMark match {
-      case winnerMark: Some[String] => print(winnerMark.get + " has won!\n")
+      case winnerMark: Some[Any]    => print(winnerMark.get + " has won!\n")
       case _                        => print("It's a draw!\n")
     }
   }
@@ -41,6 +54,23 @@ class ConsoleDisplay(out: Writer) extends Display {
   private def print(msg: String) {
     out.write(msg)
     out.flush
+  }
+
+  private def selectIndex(options: Seq[String]) = {
+    options.zipWithIndex.foreach(printOption)
+    tryZeroIndexedInt(in.readLine)
+  }
+
+  private def printOption(optionWithIndex: (String, Int)) = {
+    print(optionWithIndex._2 + 1 + ". " + optionWithIndex._1 + "\n")
+  }
+
+  private def tryZeroIndexedInt(input: String) = {
+    try {
+      Some(input.toInt - 1)
+    } catch {
+      case e:NumberFormatException => None
+    }
   }
 
   private def buildBoard(board: Board): String = {
