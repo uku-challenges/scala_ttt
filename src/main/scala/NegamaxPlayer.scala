@@ -6,6 +6,10 @@ import ttt.player.Player
 import scala.collection.mutable.HashMap
 
 class NegamaxPlayer(private val _mark: String) extends Player{
+
+  private val MIN =  -100
+  private val MAX =  100
+
   def mark = _mark
 
   def getMove(board: Board): Option[Int] = {
@@ -18,23 +22,26 @@ class NegamaxPlayer(private val _mark: String) extends Player{
     val scoresWithMoves = new HashMap[Int, Int]
 
     board.validMoves.map{ move =>
-      val score = -negamax(board.markSquare(move, mark), Mark.opponentOf(mark))
+      val score = -negamax(board.markSquare(move, mark), Mark.opponentOf(mark), MIN, MAX)
       scoresWithMoves(score) = move
     }
     scoresWithMoves
   }
 
-  private def negamax(board: Board, player: String): Int = {
+  private def negamax(board: Board, player: String, alpha: Int, beta: Int): Int = {
     if(board.isOver) {
       return score(board, player)
     }
 
-    var bestScore = -1
+    var mutAlpha = alpha
+    var bestScore = MIN
     board.validMoves.foreach{ move =>
       val newBoard = board.markSquare(move, player)
-      val score = -negamax(newBoard, Mark.opponentOf(player))
-      if(score > bestScore) {
-        bestScore = score
+      val score = -negamax(newBoard, Mark.opponentOf(player), -beta, -mutAlpha)
+      bestScore = math.max(score, bestScore)
+      mutAlpha  = math.max(score, mutAlpha)
+      if(mutAlpha >= beta) {
+        return bestScore
       }
     }
     bestScore
