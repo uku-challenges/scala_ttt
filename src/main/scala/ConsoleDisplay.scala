@@ -1,6 +1,7 @@
 package ttt.console_display
 
 import java.io.{Writer, BufferedReader}
+import ttt.mark.Mark.{X,O}
 import ttt.board.Board
 import ttt.display.Display
 
@@ -8,6 +9,15 @@ object ConsoleDisplay {
 }
 
 class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
+  private val ANSI_CLS     = "\u001b[H\u001b[2J"
+  private val ANSI_GREEN   = "\u001b[2;32m"
+  private val ANSI_YELLOW  = "\u001b[2;33m"
+  private val ANSI_RESET   = "\u001b[0m"
+
+  private val colorFor = Map(
+    X -> ANSI_GREEN,
+    O -> ANSI_YELLOW
+  )
 
   private val template = 
     """ #* | * | *
@@ -20,6 +30,7 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
   private val placeHolder = "\\*"
   
   def select(subject: String, options: Seq[String]): Option[String] = {
+    clear()
     print("Select " + subject + ":\n")
     selectIndex(options) match {
       case Some(index) => options.lift(index)
@@ -33,6 +44,7 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
   }
 
   def showBoard(board: Board) {
+    clear()
     print(buildBoard(board))
   }
 
@@ -51,7 +63,7 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
     }
   }
 
-  private def print(msg: String) {
+  private def print(msg: String) = {
     out.write(msg)
     out.flush
   }
@@ -61,8 +73,8 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
     tryZeroIndexedInt(in.readLine)
   }
 
-  private def printOption(optionWithIndex: (String, Int)) = {
-    print(optionWithIndex._2 + 1 + ". " + optionWithIndex._1 + "\n")
+  private def printOption(option: (String, Int)) = {
+    print(option._2 + 1 + ". " + option._1 + "\n")
   }
 
   private def tryZeroIndexedInt(input: String) = {
@@ -78,13 +90,25 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
      board.asSeq.foreach(cell =>
          boardString = boardString.replaceFirst(placeHolder, formatCell(cell))
      )
-     boardString + "\n"
+     boardString
   }
 
   private def formatCell(cell: Any): String = {
     cell match {
-      case cell: String => cell
       case cell: Int => (cell + 1).toString
+      case cell: String => coloredCell(cell)
     }
+  }
+
+  private def coloredCell(cell: String) = {
+    colored(cell, colorFor(cell))
+  }
+
+  private def clear() = {
+    print(ANSI_CLS)
+  }
+
+  private def colored(str: String, color: String) = {
+    color + str + ANSI_RESET
   }
 }

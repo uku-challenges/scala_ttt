@@ -49,22 +49,6 @@ class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter
         occurrences(out.toString, "X") should equal(3)
         occurrences(out.toString, "O") should equal(2)
       }
-
-      it("Shows the board in correct format") {
-        display.showBoard(Board.make(0, 1, 2,
-                                     3, X, 5,
-                                     6, 7, 8))
-
-        val expected = 
-          """ #1 | 2 | 3
-              #--+---+--
-              #4 | X | 6
-              #--+---+--
-              #7 | 8 | 9
-          #""".stripMargin('#') + "\n"
-
-        out.toString should equal(expected)
-      }
     }
 
     describe("Select") {
