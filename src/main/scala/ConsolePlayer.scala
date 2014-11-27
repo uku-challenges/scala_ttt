@@ -1,11 +1,12 @@
 package ttt.console_player
 
 import ttt.player.Player
+import ttt.board.Board
 import java.io.BufferedReader
 
 class ConsolePlayer(private val _mark: String, in: BufferedReader) extends Player{
 
-  def getMove(): Option[Int] = {
+  def getMove(board: Board): Option[Int] = {
     tryConvert(in.readLine)
   }
 

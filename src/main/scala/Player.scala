@@ -1,6 +1,8 @@
 package ttt.player
 
+import ttt.board.Board
+
 trait Player {
-  def getMove(): Option[Int]
+  def getMove(board: Board): Option[Int]
   def mark: String
 }

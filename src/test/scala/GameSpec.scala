@@ -19,7 +19,7 @@ object FakePlayer {
 }
 
 class FakePlayer(var moves: Seq[Int], private val _mark:String) extends Player {
-  def getMove() = {
+  def getMove(board: Board) = {
     val move = moves.headOption
     moves = moves.drop(1)
     move

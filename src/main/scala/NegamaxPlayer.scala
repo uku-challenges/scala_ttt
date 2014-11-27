@@ -2,9 +2,10 @@ package ttt.negamax_player
 
 import ttt.board.Board
 import ttt.mark.Mark
+import ttt.player.Player
 import scala.collection.mutable.HashMap
 
-class NegamaxPlayer(private val _mark: String){
+class NegamaxPlayer(private val _mark: String) extends Player{
   def mark = _mark
 
   def getMove(board: Board): Option[Int] = {
