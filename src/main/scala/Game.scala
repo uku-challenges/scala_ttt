@@ -10,36 +10,6 @@ import ttt.negamax_player.NegamaxPlayer
 
 import java.io.{PrintWriter, BufferedReader, InputStreamReader}
 
-object Game {
-  val in  = new BufferedReader(new InputStreamReader(System.in))
-  val out = new PrintWriter(System.out)
-  val display = new ConsoleDisplay(in, out)
-
-  val gameTypes = Map(
-    "Human vs Human"       -> { build(human(X), human(O))},
-    "Human vs Computer"    -> { build(human(X), computer(O)) },
-    "Computer vs Human"    -> { build(computer(X), human(O)) },
-    "Computer vs Computer" -> { build(computer(X), computer(O)) }
-  )
-
-  def main(args: Array[String]) = {
-    val selection = display.select("game type", gameTypes.keys.toList)
-    gameTypes(selection.get).play()
-  }
-
-  private def build(players: Player*) = {
-    new Game(Board.empty, display, players)
-  }
-
-  private def human(mark: String) = { 
-    new ConsolePlayer(mark, display)
-  }
-
-  private def computer(mark: String) = {
-    new NegamaxPlayer(mark)
-  }
-}
-
 class Game(var board: Board, private val display: Display, private val players: Seq[Player]) {
   private var playerStream = Stream.continually(players.toStream).flatten
 

@@ -9,4 +9,5 @@ trait Display {
   def announceResult(mark: Option[Any])
   def select(message: String , options: Seq[String]): Option[String]
   def getMove(): Option[Int]
+  def playAgain(): Boolean
 }

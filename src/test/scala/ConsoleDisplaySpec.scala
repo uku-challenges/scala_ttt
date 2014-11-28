@@ -83,6 +83,27 @@ class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter
       }
     }
 
+    describe("playAgain") {
+      it("asks to play again") {
+        withInStr("", display => {
+          display.playAgain
+          out.toString should include("play again")
+        })
+      }
+
+      it("is true when user enters y") {
+        withInStr("y", display =>
+          display.playAgain should be(true)
+        )
+      }
+
+      it("is false when user does not enter y") {
+        withInStr("n", display =>
+          display.playAgain should be(false)
+        )
+      }
+    }
+
     describe("getMove") {
       it("asks for move") {
         withInStr("", display =>{

@@ -38,6 +38,11 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
     }
   }
 
+  def playAgain(): Boolean = {
+    print("Enter 'y' to play again :")
+    in.readLine == "y"
+  }
+
   def getMove(): Option[Int] = {
     print("Enter a move: ")
     tryZeroIndexedInt(in.readLine)
