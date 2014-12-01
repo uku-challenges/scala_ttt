@@ -125,12 +125,6 @@ class ConsoleDisplaySpec extends FunSpec with Matchers with BeforeAndAfter {
       }
     }
 
-    it("notifies of turn") {
-      display.notifyTurn("X")
-
-      out.toString should include("X")
-    }
-
     it("notifies of invalid move") {
       display.invalidMove()
 

@@ -53,13 +53,6 @@ class GameSpec extends FunSpec with Matchers with MockFactory {
 
         (stubDisplay.showBoard _).verify(*).once()
       }
-
-      it("notifies whose turn it is") {
-        val game = gameWithMoves(0)
-        game.playTurn()
-
-        (stubDisplay.notifyTurn _).verify(*).once()
-      }
     }
 
     describe("With invalid move") {

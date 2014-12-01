@@ -3,7 +3,6 @@ package ttt.display
 import java.io.{BufferedReader, Writer}
 
 import ttt.Board
-import ttt.display.Ansi
 import ttt.Mark.{O, X}
 
 class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
@@ -43,10 +42,6 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
 
   def invalidMove() = {
     print("Invalid Move, try again\n")
-  }
-
-  def notifyTurn(mark: String) = {
-    print("\n" + mark + " turn\n")
   }
 
   def announceResult(winnerMark: Option[Any]) = {

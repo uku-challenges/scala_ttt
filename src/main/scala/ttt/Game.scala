@@ -37,12 +37,9 @@ class Game(var board: Board, private val display: Display, private val players: 
   }
 
   private def updateDisplay() = {
+    display.showBoard(board)
     if(isOver) {
-      display.showBoard(board)
       display.announceResult(winnerMark)
-    } else {
-      display.notifyTurn(currentPlayer.mark)
-      display.showBoard(board)
     }
   }
 
