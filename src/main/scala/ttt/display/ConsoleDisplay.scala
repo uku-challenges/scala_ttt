@@ -51,22 +51,9 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
     }
   }
 
-  private def print(msg: String) = {
-    out.write(msg)
-    out.flush()
-  }
-
   private def selectIndex(options: Seq[String]) = {
     options.zipWithIndex.foreach(printOption)
     tryZeroIndexedInt(in.readLine)
-  }
-
-  private def tryZeroIndexedInt(input: String) = {
-    try {
-      Some(input.toInt - 1)
-    } catch {
-      case e:NumberFormatException => None
-    }
   }
 
   private def buildBoard(board: Board): String = {
@@ -97,5 +84,18 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
 
   private def clear() = {
     print(Ansi.clear)
+  }
+
+  private def print(msg: String) = {
+    out.write(msg)
+    out.flush()
+  }
+
+  private def tryZeroIndexedInt(input: String) = {
+    try {
+      Some(input.toInt - 1)
+    } catch {
+      case e:NumberFormatException => None
+    }
   }
 }
