@@ -3,19 +3,10 @@ package ttt.display
 import java.io.{BufferedReader, Writer}
 
 import ttt.Board
+import ttt.display.Ansi
 import ttt.Mark.{O, X}
 
 class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
-  private val ANSI_CLS     = "\u001b[H\u001b[2J"
-  private val ANSI_GREEN   = "\u001b[2;32m"
-  private val ANSI_YELLOW  = "\u001b[2;33m"
-  private val ANSI_RESET   = "\u001b[0m"
-
-  private val colorFor = Map(
-    X -> ANSI_GREEN,
-    O -> ANSI_YELLOW
-  )
-
   private val template = 
     """ #* | * | *
         #--+---+--
@@ -103,14 +94,13 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
   }
 
   private def coloredCell(cell: String) = {
-    colored(cell, colorFor(cell))
+    cell match {
+      case X => Ansi.green(X)
+      case O => Ansi.yellow(O)
+    }
   }
 
   private def clear() = {
-    print(ANSI_CLS)
-  }
-
-  private def colored(str: String, color: String) = {
-    color + str + ANSI_RESET
+    print(Ansi.clear)
   }
 }
