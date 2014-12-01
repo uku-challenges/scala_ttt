@@ -1,11 +1,11 @@
 package ttt.negamax_player
 
-import ttt.board.Board
-import ttt.mark.Mark.{X,O}
 import org.scalatest._
-import org.scalatest.matchers.{ShouldMatchers, Matcher, MatchResult}
+import org.scalatest.matchers.{MatchResult, Matcher}
+import ttt.board.Board
+import ttt.mark.Mark.{O, X}
 
-class NegamaxPlayerSpec extends FunSpec with ShouldMatchers {
+class NegamaxPlayerSpec extends FunSpec with Matchers {
   
   def player(mark: String) = {
     new NegamaxPlayer(mark)
@@ -17,7 +17,7 @@ class NegamaxPlayerSpec extends FunSpec with ShouldMatchers {
                              O, X, 5,
                              O, 7, 8) 
 
-      player(X).getMove(board).get shouldBe(8)
+      player(X).getMove(board).get shouldBe 8
     }
 
     it("defends against certain loss") {
@@ -25,7 +25,7 @@ class NegamaxPlayerSpec extends FunSpec with ShouldMatchers {
                              X, O, 5,
                              O, 7, 8) 
 
-      player(X).getMove(board).get shouldBe(2)
+      player(X).getMove(board).get shouldBe 2
     }
 
     it("defends against diagonal fork") {

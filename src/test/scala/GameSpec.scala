@@ -1,12 +1,11 @@
 package ttt.game
 
-import ttt.mark.Mark
-import ttt.board.Board
-import ttt.player.Player
-import ttt.display.Display
-import org.scalatest._
-import org.scalatest.matchers.ShouldMatchers
 import org.scalamock.scalatest.MockFactory
+import org.scalatest._
+import ttt.board.Board
+import ttt.display.Display
+import ttt.mark.Mark
+import ttt.player.Player
 
 object FakePlayer {
   def X(moves: Int*) = {
@@ -28,7 +27,7 @@ class FakePlayer(var moves: Seq[Int], private val _mark:String) extends Player {
   def mark: String = _mark
 }
 
-class GameSpec extends FunSpec with ShouldMatchers with MockFactory {
+class GameSpec extends FunSpec with Matchers with MockFactory {
 
   val stubDisplay = stub[Display]
   
@@ -54,14 +53,14 @@ class GameSpec extends FunSpec with ShouldMatchers with MockFactory {
         val game = gameWithMoves(0)
         game.playTurn()
 
-        (stubDisplay.showBoard _).verify(*).once
+        (stubDisplay.showBoard _).verify(*).once()
       }
 
       it("notifies whose turn it is") {
         val game = gameWithMoves(0)
         game.playTurn()
 
-        (stubDisplay.notifyTurn _).verify(*).once
+        (stubDisplay.notifyTurn _).verify(*).once()
       }
     }
 
@@ -93,7 +92,7 @@ class GameSpec extends FunSpec with ShouldMatchers with MockFactory {
         val game = gameWithMoves(99)
         game.playTurn()
 
-        (stubDisplay.invalidMove _).verify().once
+        (stubDisplay.invalidMove _).verify().once()
       }
     }
 

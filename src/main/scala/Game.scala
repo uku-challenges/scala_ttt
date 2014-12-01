@@ -10,7 +10,7 @@ class Game(var board: Board, private val display: Display, private val players: 
   def play() {
     updateDisplay()
     while(!isOver) {
-      playTurn
+      playTurn()
     }
   }
 

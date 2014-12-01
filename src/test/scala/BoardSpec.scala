@@ -1,12 +1,11 @@
 package ttt.board
 
-import ttt.mark.Mark.{X,O}
 import org.scalatest._
-import org.scalatest.matchers.ShouldMatchers
+import ttt.mark.Mark.{O, X}
 
-class BoardSpec extends FunSpec with ShouldMatchers {
+class BoardSpec extends FunSpec with Matchers {
 
-  var board = Board.empty()
+  var board = Board.empty
 
   describe("Board") {
     it("makes a move") {

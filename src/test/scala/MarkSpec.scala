@@ -1,9 +1,8 @@
 package ttt.mark
 
 import org.scalatest._
-import org.scalatest.matchers.ShouldMatchers
 
-class MarkSpec extends FunSpec with ShouldMatchers {
+class MarkSpec extends FunSpec with Matchers {
 
   describe("isMark") {
     it("X is a mark") {

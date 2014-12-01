@@ -1,16 +1,14 @@
 package ttt.multiple_game_runner
 
+import java.io.{BufferedReader, StringReader, StringWriter, Writer}
+
+import org.scalatest._
 import ttt.console_display.ConsoleDisplay
 import ttt.console_player.ConsolePlayer
 import ttt.negamax_player.NegamaxPlayer
 import ttt.player.Player
 
-import org.scalatest._
-import org.scalatest.matchers.ShouldMatchers
-import org.scalamock.scalatest.MockFactory
-import java.io.{Writer, BufferedReader, StringWriter, StringReader}
-
-class MultipleGameRunnerSpec extends FunSpec with ShouldMatchers with BeforeAndAfter{
+class MultipleGameRunnerSpec extends FunSpec with Matchers with BeforeAndAfter{
 
   var out: Writer  = _
 
@@ -26,7 +24,7 @@ class MultipleGameRunnerSpec extends FunSpec with ShouldMatchers with BeforeAndA
   def selectPlayers(selection: String, testFn: Seq[Player] => Unit) = {
     val in = new BufferedReader(new StringReader(selection))
     val runner = new MultipleGameRunner(new ConsoleDisplay(in, out))
-    testFn(runner.selectPlayers)
+    testFn(runner.selectPlayers())
   }
 
   describe("selecting players") {

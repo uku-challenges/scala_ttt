@@ -67,7 +67,7 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
 
   private def print(msg: String) = {
     out.write(msg)
-    out.flush
+    out.flush()
   }
 
   private def selectIndex(options: Seq[String]) = {

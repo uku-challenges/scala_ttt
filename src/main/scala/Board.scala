@@ -4,9 +4,9 @@ import ttt.mark.Mark
 import ttt.mark.Mark.{X,O}
 
 object Board {
-  def empty() = new Board(Vector(0, 1, 2,
-                                 3, 4, 5, 
-                                 6, 7, 8))
+  def empty = new Board(Vector(0, 1, 2,
+                               3, 4, 5,
+                               6, 7, 8))
 
   def make(squares: Any*) = {
     new Board(squares)

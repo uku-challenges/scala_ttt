@@ -1,12 +1,12 @@
 package ttt.console_display
 
-import ttt.mark.Mark._
-import ttt.board.Board
-import org.scalatest._
-import org.scalatest.matchers.ShouldMatchers
-import java.io.{Writer, BufferedReader, StringWriter, StringReader}
+import java.io.{BufferedReader, StringReader, StringWriter, Writer}
 
-class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter {
+import org.scalatest._
+import ttt.board.Board
+import ttt.mark.Mark._
+
+class ConsoleDisplaySpec extends FunSpec with Matchers with BeforeAndAfter {
 
   var in: BufferedReader      = _
   var out: Writer             = _
@@ -26,7 +26,7 @@ class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter
 
   describe("Console Display") {
     describe("showBoard") {
-      it("Does not write a mark if board is emtpy") {
+      it("Does not write a mark if board is empty") {
         display.showBoard(Board.empty)
 
         occurrences(out.toString, "X") should equal(0)
@@ -86,20 +86,20 @@ class ConsoleDisplaySpec extends FunSpec with ShouldMatchers with BeforeAndAfter
     describe("playAgain") {
       it("asks to play again") {
         withInStr("", display => {
-          display.playAgain
+          display.playAgain()
           out.toString should include("play again")
         })
       }
 
       it("is true when user enters y") {
         withInStr("y", display =>
-          display.playAgain should be(true)
+          display.playAgain() should be(true)
         )
       }
 
       it("is false when user does not enter y") {
         withInStr("n", display =>
-          display.playAgain should be(false)
+          display.playAgain() should be(false)
         )
       }
     }

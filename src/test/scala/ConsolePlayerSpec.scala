@@ -1,15 +1,12 @@
 package ttt.console_player
 
-import ttt.mark.Mark._
+import org.scalamock.scalatest.MockFactory
+import org.scalatest._
 import ttt.board.Board
 import ttt.display.Display
+import ttt.mark.Mark._
 
-import org.scalatest._
-import org.scalatest.matchers.ShouldMatchers
-import org.scalamock.scalatest.MockFactory
-import java.io.{StringReader, BufferedReader}
-
-class ConsolePlayerSpec extends FunSpec with ShouldMatchers with MockFactory {
+class ConsolePlayerSpec extends FunSpec with Matchers with MockFactory {
   
   val display = mock[Display]
   val player = new ConsolePlayer(X, display)
