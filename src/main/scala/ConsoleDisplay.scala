@@ -75,10 +75,6 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
     tryZeroIndexedInt(in.readLine)
   }
 
-  private def printOption(option: (String, Int)) = {
-    print(option._2 + 1 + ". " + option._1 + "\n")
-  }
-
   private def tryZeroIndexedInt(input: String) = {
     try {
       Some(input.toInt - 1)
@@ -100,6 +96,10 @@ class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
       case cell: Int => (cell + 1).toString
       case cell: String => coloredCell(cell)
     }
+  }
+
+  private def printOption(option: (String, Int)) = {
+    print(option._2 + 1 + ". " + option._1 + "\n")
   }
 
   private def coloredCell(cell: String) = {
