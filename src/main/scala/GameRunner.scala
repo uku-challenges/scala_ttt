@@ -23,7 +23,7 @@ object GameRunner {
 
 class GameRunner(private val display: Display) {
   private val gameTypes = Map(
-    "Human vs Human"       -> { build(human(X), human(O))},
+    "Human vs Human"       -> { build(human(X), human(O)) },
     "Human vs Computer"    -> { build(human(X), computer(O)) },
     "Computer vs Human"    -> { build(computer(X), human(O)) },
     "Computer vs Computer" -> { build(computer(X), computer(O)) }
