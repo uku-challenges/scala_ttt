@@ -1,36 +1,23 @@
 package ttt.game
 
 import ttt.board.Board
-import ttt.mark.Mark.{X, O}
 import ttt.player.Player
 import ttt.display.Display
-import ttt.console_display.ConsoleDisplay
-import ttt.console_player.ConsolePlayer
-import ttt.negamax_player.NegamaxPlayer
-
-import java.io.{PrintWriter, BufferedReader, InputStreamReader}
 
 class Game(var board: Board, private val display: Display, private val players: Seq[Player]) {
   private var playerStream = Stream.continually(players.toStream).flatten
 
   def play() {
+    updateDisplay()
     while(!isOver) {
       playTurn
     }
-    display.showBoard(board)
-    display.announceResult(winnerMark)
   }
 
   def playTurn() = {
-    display.notifyTurn(currentPlayer.mark)
-    display.showBoard(board)
     val moveOption = currentPlayer.getMove(board)
-    if(canMakeMove(moveOption)) {
-      makeMove(moveOption.get)
-      nextPlayerTurn()
-    } else {
-      display.invalidMove()
-    }
+    makeMoveIfValid(moveOption)
+    updateDisplay()
   }
 
   def winnerMark = {
@@ -41,11 +28,30 @@ class Game(var board: Board, private val display: Display, private val players: 
     playerStream.head
   }
 
+  private def makeMoveIfValid(moveOption: Option[Int]) = {
+    if(isValid(moveOption)) {
+      makeMove(moveOption.get)
+      nextPlayerTurn()
+    } else {
+      display.invalidMove()
+    }
+  }
+
+  private def updateDisplay() = {
+    if(isOver) {
+      display.showBoard(board)
+      display.announceResult(winnerMark)
+    } else {
+      display.notifyTurn(currentPlayer.mark)
+      display.showBoard(board)
+    }
+  }
+
   private def isOver = {
     board.isOver
   }
 
-  private def canMakeMove(moveOption: Option[Int]) = {
+  private def isValid(moveOption: Option[Int]) = {
     moveOption.isDefined && board.isValidMove(moveOption.get)
   }
 

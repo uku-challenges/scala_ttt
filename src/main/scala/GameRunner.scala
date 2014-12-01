@@ -19,11 +19,10 @@ object GameRunner {
   def main(args: Array[String]) = {
     new GameRunner(display).playUntilPlayerQuits()
   }
-
 }
 
 class GameRunner(private val display: Display) {
-  val gameFor = Map(
+  private val gameTypes = Map(
     "Human vs Human"       -> { build(human(X), human(O))},
     "Human vs Computer"    -> { build(human(X), computer(O)) },
     "Computer vs Human"    -> { build(computer(X), human(O)) },
@@ -33,13 +32,13 @@ class GameRunner(private val display: Display) {
   def playUntilPlayerQuits() = {
     var playAgain = true
     while(playAgain) {
-      gameFor(selectGame()).play()
+      gameTypes(selectGame()).play()
       playAgain = display.playAgain()
     }
   }
 
   private def selectGame() = {
-    display.select("game type", gameFor.keys.toList).get
+    display.select("game type", gameTypes.keys.toList).get
   }
 
   private def build(players: Player*) = {

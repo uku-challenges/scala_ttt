@@ -5,9 +5,6 @@ import ttt.mark.Mark.{X,O}
 import ttt.board.Board
 import ttt.display.Display
 
-object ConsoleDisplay {
-}
-
 class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
   private val ANSI_CLS     = "\u001b[H\u001b[2J"
   private val ANSI_GREEN   = "\u001b[2;32m"
