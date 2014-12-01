@@ -1,7 +1,5 @@
-package ttt.board
-
-import ttt.mark.Mark
-import ttt.mark.Mark.{X,O}
+package ttt
+import ttt.Mark.{X,O}
 
 object Board {
   def empty = new Board(Vector(0, 1, 2,

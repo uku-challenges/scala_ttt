@@ -1,4 +1,4 @@
-package ttt.mark
+package ttt
 
 object Mark {
   val X = "X"

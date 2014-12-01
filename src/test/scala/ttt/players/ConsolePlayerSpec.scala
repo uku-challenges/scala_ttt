@@ -1,10 +1,10 @@
-package ttt.console_player
+package ttt.players
 
 import org.scalamock.scalatest.MockFactory
 import org.scalatest._
-import ttt.board.Board
+import ttt.Board
+import ttt.Mark.X
 import ttt.display.Display
-import ttt.mark.Mark._
 
 class ConsolePlayerSpec extends FunSpec with Matchers with MockFactory {
   

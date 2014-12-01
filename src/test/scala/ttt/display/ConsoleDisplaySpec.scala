@@ -1,10 +1,10 @@
-package ttt.console_display
+package ttt.display
 
 import java.io.{BufferedReader, StringReader, StringWriter, Writer}
 
 import org.scalatest._
-import ttt.board.Board
-import ttt.mark.Mark._
+import ttt.Board
+import ttt.Mark.{X,O}
 
 class ConsoleDisplaySpec extends FunSpec with Matchers with BeforeAndAfter {
 

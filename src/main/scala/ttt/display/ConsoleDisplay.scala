@@ -1,9 +1,9 @@
-package ttt.console_display
+package ttt.display
 
-import java.io.{Writer, BufferedReader}
-import ttt.mark.Mark.{X,O}
-import ttt.board.Board
-import ttt.display.Display
+import java.io.{BufferedReader, Writer}
+
+import ttt.Board
+import ttt.Mark.{O, X}
 
 class ConsoleDisplay(in: BufferedReader, out: Writer) extends Display {
   private val ANSI_CLS     = "\u001b[H\u001b[2J"

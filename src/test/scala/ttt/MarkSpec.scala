@@ -1,4 +1,4 @@
-package ttt.mark
+package ttt
 
 import org.scalatest._
 

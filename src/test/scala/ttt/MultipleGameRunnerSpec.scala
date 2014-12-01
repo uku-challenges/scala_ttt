@@ -1,12 +1,10 @@
-package ttt.multiple_game_runner
+package ttt
 
 import java.io.{BufferedReader, StringReader, StringWriter, Writer}
 
 import org.scalatest._
-import ttt.console_display.ConsoleDisplay
-import ttt.console_player.ConsolePlayer
-import ttt.negamax_player.NegamaxPlayer
-import ttt.player.Player
+import ttt.display.ConsoleDisplay
+import ttt.players.{Player, NegamaxPlayer, ConsolePlayer}
 
 class MultipleGameRunnerSpec extends FunSpec with Matchers with BeforeAndAfter{
 

@@ -1,8 +1,7 @@
-package ttt.game
+package ttt
 
-import ttt.board.Board
-import ttt.player.Player
 import ttt.display.Display
+import ttt.players.Player
 
 class Game(var board: Board, private val display: Display, private val players: Seq[Player]) {
   private var playerStream = Stream.continually(players.toStream).flatten

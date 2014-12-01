@@ -1,15 +1,10 @@
-package ttt.multiple_game_runner
+package ttt
 
-import ttt.board.Board
-import ttt.game.Game
-import ttt.mark.Mark.{X, O}
-import ttt.player.Player
-import ttt.display.Display
-import ttt.console_display.ConsoleDisplay
-import ttt.console_player.ConsolePlayer
-import ttt.negamax_player.NegamaxPlayer
+import java.io.{BufferedReader, InputStreamReader, PrintWriter}
 
-import java.io.{PrintWriter, BufferedReader, InputStreamReader}
+import ttt.Mark.{X,O}
+import ttt.display.{Display, ConsoleDisplay}
+import ttt.players.{Player, NegamaxPlayer, ConsolePlayer}
 
 object MultipleGameRunner {
   val in  = new BufferedReader(new InputStreamReader(System.in))

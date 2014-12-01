@@ -1,9 +1,10 @@
-package ttt.negamax_player
+package ttt.players
+
+import ttt.Board
+import ttt.Mark.{X, O}
 
 import org.scalatest._
 import org.scalatest.matchers.{MatchResult, Matcher}
-import ttt.board.Board
-import ttt.mark.Mark.{O, X}
 
 class NegamaxPlayerSpec extends FunSpec with Matchers {
   

@@ -1,6 +1,6 @@
-package ttt.player
+package ttt.players
 
-import ttt.board.Board
+import ttt.Board
 
 trait Player {
   def getMove(board: Board): Option[Int]

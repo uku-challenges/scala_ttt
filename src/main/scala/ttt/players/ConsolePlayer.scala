@@ -1,9 +1,7 @@
-package ttt.console_player
+package ttt.players
 
-import ttt.player.Player
-import ttt.board.Board
+import ttt.Board
 import ttt.display.Display
-import java.io.BufferedReader
 
 class ConsolePlayer(private val _mark: String, display: Display) extends Player{
 

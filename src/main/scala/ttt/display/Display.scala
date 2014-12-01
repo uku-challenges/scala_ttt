@@ -1,6 +1,6 @@
 package ttt.display
 
-import ttt.board.Board
+import ttt.Board
 
 trait Display {
   def showBoard(board: Board)

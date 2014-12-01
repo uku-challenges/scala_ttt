@@ -1,11 +1,9 @@
-package ttt.game
+package ttt
 
 import org.scalamock.scalatest.MockFactory
 import org.scalatest._
-import ttt.board.Board
 import ttt.display.Display
-import ttt.mark.Mark
-import ttt.player.Player
+import ttt.players.Player
 
 object FakePlayer {
   def X(moves: Int*) = {

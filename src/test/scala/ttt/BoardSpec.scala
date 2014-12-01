@@ -1,7 +1,8 @@
-package ttt.board
+package ttt
+
+import ttt.Mark.{X,O}
 
 import org.scalatest._
-import ttt.mark.Mark.{O, X}
 
 class BoardSpec extends FunSpec with Matchers {
 

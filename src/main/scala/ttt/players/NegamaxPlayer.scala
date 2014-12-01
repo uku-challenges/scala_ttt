@@ -1,8 +1,7 @@
-package ttt.negamax_player
+package ttt.players
 
-import ttt.board.Board
-import ttt.mark.Mark
-import ttt.player.Player
+import ttt.{Board, Mark}
+
 import scala.collection.mutable.HashMap
 
 class NegamaxPlayer(private val _mark: String) extends Player{
