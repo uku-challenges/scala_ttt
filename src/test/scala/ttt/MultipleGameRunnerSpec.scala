@@ -83,5 +83,4 @@ class MultipleGameRunnerSpec extends FunSpec with Matchers with BeforeAndAfter{
       testFn(runner.selectPlayers())
     )
   }
-
 }
