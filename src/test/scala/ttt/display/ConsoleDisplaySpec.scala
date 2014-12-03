@@ -17,13 +17,6 @@ class ConsoleDisplaySpec extends FunSpec with Matchers with BeforeAndAfter {
     display = new ConsoleDisplay(in, out)
   }
 
-  def withInStr(str: String, testFn: ConsoleDisplay => Unit) = {
-    in = new BufferedReader(new StringReader(str))
-    testFn(new ConsoleDisplay(in, out))
-  }
-
-  def occurrences(str:String, substr:String ) = substr.r.findAllMatchIn(str).length
-
   describe("Console Display") {
     describe("showBoard") {
       it("Does not write a mark if board is empty") {
@@ -143,4 +136,11 @@ class ConsoleDisplaySpec extends FunSpec with Matchers with BeforeAndAfter {
       out.toString should include("draw")
     }
   }
+
+  def withInStr(str: String, testFn: ConsoleDisplay => Unit) = {
+    in = new BufferedReader(new StringReader(str))
+    testFn(new ConsoleDisplay(in, out))
+  }
+
+  def occurrences(str:String, substr:String ) = substr.r.findAllMatchIn(str).length
 }

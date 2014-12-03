@@ -14,20 +14,6 @@ class MultipleGameRunnerSpec extends FunSpec with Matchers with BeforeAndAfter{
     out = new StringWriter()
   }
 
-  def makeIn(str: String): BufferedReader = {
-    new BufferedReader(new StringReader(str))
-  }
-
-  def withInStr(str: String, testFn: MultipleGameRunner => Unit) = {
-    testFn(new MultipleGameRunner(new ConsoleDisplay(makeIn(str), out)))
-  }
-
-  def selectPlayers(selection: String, testFn: Seq[Player] => Unit) = {
-    withInStr(selection, runner =>
-      testFn(runner.selectPlayers())
-    )
-  }
-
   describe("selecting players") {
     it("human vs human") {
       selectPlayers("1\n", players => {
@@ -80,4 +66,18 @@ class MultipleGameRunnerSpec extends FunSpec with Matchers with BeforeAndAfter{
       })
     }
   }
+  def makeIn(str: String): BufferedReader = {
+    new BufferedReader(new StringReader(str))
+  }
+
+  def withInStr(str: String, testFn: MultipleGameRunner => Unit) = {
+    testFn(new MultipleGameRunner(new ConsoleDisplay(makeIn(str), out)))
+  }
+
+  def selectPlayers(selection: String, testFn: Seq[Player] => Unit) = {
+    withInStr(selection, runner =>
+      testFn(runner.selectPlayers())
+    )
+  }
+
 }
