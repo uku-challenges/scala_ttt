@@ -1,6 +1,6 @@
 ### Scala tic-tac-toe
 
-A tit-tac-toe game with an unbeatable AI. The AI uses a negamax algorithm with alpha-beta pruning.
+A tic-tac-toe game with an unbeatable AI. The AI uses a negamax algorithm with alpha-beta pruning.
 
 ### Running
 
