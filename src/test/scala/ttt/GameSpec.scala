@@ -4,26 +4,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest._
 import ttt.display.Display
 import ttt.players.Player
-
-object FakePlayer {
-  def X(moves: Int*) = {
-    new FakePlayer(moves.toList, Mark.X)
-  }
-
-  def O(moves: Int*) = {
-    new FakePlayer(moves.toList, Mark.O)
-  }
-}
-
-class FakePlayer(var moves: Seq[Int], private val _mark:String) extends Player {
-  def getMove(board: Board) = {
-    val move = moves.headOption
-    moves = moves.drop(1)
-    move
-  }
-
-  def mark: String = _mark
-}
+import ttt.players.FakePlayer
 
 class GameSpec extends FunSpec with Matchers with MockFactory {
 
