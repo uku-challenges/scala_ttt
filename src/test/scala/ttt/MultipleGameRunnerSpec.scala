@@ -52,17 +52,21 @@ class MultipleGameRunnerSpec extends FunSpec with Matchers with BeforeAndAfter{
   }
 
   describe("game runner") {
+    val xWinsSequence = "1\n1\n2\n3\n4\n5\n6\n7\nno\n"
+    val xWinsThenOWinsSequence = "1\n1\n2\n3\n4\n5\n6\n7\ny\n1\n1\n2\n3\n5\n4\n8\nno\n"
+
     it("plays through one game") {
-      withInStr("1\n1\n2\n3\n4\n5\n6\n7\nno\n", runner => {
+      withInStr(xWinsSequence, runner => {
         runner.playUntilPlayerQuits()
         out.toString should include("X has won")
       })
     }
 
     it("plays through two games") {
-      withInStr("1\n1\n2\n3\n4\n5\n6\n7\ny\n1\n1\n2\n3\n4\n5\n6\n7\nno\n", runner => {
+      withInStr(xWinsThenOWinsSequence, runner => {
         runner.playUntilPlayerQuits()
         out.toString should include("X has won")
+        out.toString should include("O has won")
       })
     }
   }
